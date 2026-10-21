@@ -1,0 +1,384 @@
+{
+  "users": [
+    {
+      "id": "sv-k21-001",
+      "name": "Nguyễn Hoàng Nam",
+      "mssv": "21DTH01245",
+      "class": "K21-CNTT02",
+      "role": "student",
+      "avatar": "👨‍💻",
+      "level": "Chiến binh Săn Bug K21",
+      "xp": 340,
+      "streak": 5,
+      "completedTickets": ["ticket-01", "ticket-02", "ticket-04"],
+      "completedBugs": ["bug-01", "bug-03"],
+      "masteredFlashcards": ["fc-01", "fc-03"]
+    },
+    {
+      "id": "gv-k21-001",
+      "name": "ThS. Trần Minh Đức",
+      "mssv": "GV-K21-IT",
+      "class": "Bộ môn Kỹ thuật Máy tính",
+      "role": "teacher",
+      "avatar": "👨‍🏫",
+      "level": "Giảng viên Trưởng Bộ môn",
+      "xp": 2500,
+      "streak": 42
+    },
+    {
+      "id": "adm-k21-001",
+      "name": "K21 System Architect",
+      "mssv": "SYS-ADMIN",
+      "class": "Quản trị Hạ tầng IT",
+      "role": "admin",
+      "avatar": "⚡",
+      "level": "Root Administrator",
+      "xp": 9999,
+      "streak": 100
+    }
+  ],
+  "subjects": [
+    {
+      "id": "sub-hw-os",
+      "code": "IT101",
+      "name": "Phần cứng & Cài đặt HĐH Thực chiến",
+      "icon": "💻",
+      "color": "#00f3ff",
+      "description": "Thực hành tháo lắp, chẩn đoán phần cứng, cấu hình BIOS/UEFI và 4 phương pháp cài đặt Windows chuẩn IT Helpdesk."
+    },
+    {
+      "id": "sub-code-bugs",
+      "code": "CS102",
+      "name": "Săn Bug Lập trình C & JavaScript K21",
+      "icon": "🐛",
+      "color": "#a855f7",
+      "description": "Nhận diện và sửa các lỗi tư duy thuật toán, cú pháp, con trỏ mảng, bất đồng bộ và bẫy DOM kinh điển."
+    },
+    {
+      "id": "sub-net-deploy",
+      "code": "NET201",
+      "name": "Mạng máy tính & Triển khai Văn phòng",
+      "icon": "🌐",
+      "color": "#10b981",
+      "description": "Bấm dây mạng chuẩn T568A/B, cấu hình Router/VLAN, cấp phát DHCP và xử lý sự cố mạng LAN/WLAN văn phòng."
+    },
+    {
+      "id": "sub-sql-db",
+      "code": "DB301",
+      "name": "Cơ sở dữ liệu SQL & Tối ưu Truy vấn",
+      "icon": "🗄️",
+      "color": "#f59e0b",
+      "description": "Thiết kế chuẩn hóa cơ sở dữ liệu, viết câu lệnh DDL/DML, gỡ lỗi JOIN và Indexing tối ưu hóa truy vấn."
+    }
+  ],
+  "stage1_it_tickets": [
+    {
+      "id": "ticket-01",
+      "subjectId": "sub-hw-os",
+      "title": "BSOD: Inaccessible Boot Device sau khi cập nhật BIOS",
+      "severity": "High",
+      "userReport": "Kế toán phòng Tài vụ khởi động máy thì màn hình xanh Inaccessible Boot Device sau khi IT tự động cập nhật BIOS tối qua.",
+      "symptoms": ["Màn hình xanh BSOD", "Mã lỗi: 0x0000007b / INACCESSIBLE_BOOT_DEVICE", "Đèn ổ cứng nhấp nháy 1 lần rồi tắt"],
+      "category": "BIOS/Storage",
+      "xpReward": 50,
+      "diagnosticSteps": [
+        "Vào BIOS kiểm tra SATA Controller Mode (AHCI vs RAID ON/VMD)",
+        "Kiểm tra Boot Option Priorities xem có nhận đúng Windows Boot Manager",
+        "Chuyển chế độ VMD/RAID sang AHCI hoặc ngược lại tùy thuộc driver ban đầu của Windows"
+      ],
+      "correctActionIndex": 2,
+      "options": [
+        "Cài lại toàn bộ Windows từ đầu và xóa sạch phân vùng",
+        "Thay ổ cứng SSD mới vì ổ cứng cũ đã hỏng cell nhớ",
+        "Vào BIOS chuyển SATA Operation / VMD Controller về đúng chuẩn ban đầu trước khi cập nhật (AHCI hoặc RAID On)",
+        "Rút dây nguồn máy tính ra đợi 10 phút rồi cắm lại"
+      ],
+      "explanation": "Khi cập nhật BIOS, bo mạch chủ thường reset về mặc định nhà sản xuất (ví dụ từ AHCI sang RAID On / Intel VMD hoặc ngược lại). Windows thiếu driver tương ứng lúc nạp kernel nên gây ra BSOD 0x7b. Chỉ cần chỉnh lại chế độ controller là boot bình thường."
+    },
+    {
+      "id": "ticket-02",
+      "subjectId": "sub-hw-os",
+      "title": "Laptop Intel Gen 12/13/14 không nhận ổ cứng NVMe khi cài Win",
+      "severity": "Critical",
+      "userReport": "Sinh viên mang laptop mới mua chip Core i7 Gen 13 đến phòng máy nhờ cài Win, nhưng đến bước chọn ổ đĩa thì bảng trống trơn (We couldn't find any drives).",
+      "symptoms": ["Bộ cài Windows 10/11 không thấy ổ SSD NVMe", "Trong BIOS vẫn hiển thị tên ổ cứng Micron/Samsung 512GB", "Bấm Rescan disk không có tác dụng"],
+      "category": "Driver / Intel VMD",
+      "xpReward": 60,
+      "diagnosticSteps": [
+        "Xác định đây là kiến trúc Intel Gen 11-14 sử dụng công nghệ Intel Volume Management Device (Intel VMD)",
+        "Chuẩn bị USB chứa driver Intel Rapid Storage Technology (IRST) VMD đã giải nén",
+        "Bấm 'Load driver' trong trình cài đặt Windows và trỏ đến thư mục driver IRST"
+      ],
+      "correctActionIndex": 1,
+      "options": [
+        "Tháo nắp đáy laptop ra để cắm lại chân cắm M.2 PCIe",
+        "Bấm 'Load driver', cắm USB chứa driver Intel RST VMD controller và chọn driver `iaStorVD.sys`",
+        "Dùng lệnh `clean all` trong diskpart để format trắng SSD",
+        "Format USB cài Win từ GPT về MBR để nhận diện chuẩn cũ"
+      ],
+      "explanation": "Từ Intel Core thế hệ 11 trở lên, công nghệ Intel VMD quản lý trực tiếp bus PCIe NVMe. Bộ cài Windows gốc chưa tích hợp sẵn driver này. Cần Load driver Intel RST (VMD) hoặc tắt VMD Controller trong BIOS nếu không dùng RAID."
+    },
+    {
+      "id": "ticket-03",
+      "subjectId": "sub-hw-os",
+      "title": "Bật máy quạt quay vù vù, màn hình đen, phát 3 tiếng bíp ngắn",
+      "severity": "Medium",
+      "userReport": "Máy bàn văn phòng khoa CNTT sau kỳ nghỉ hè bật nguồn thì đèn nguồn sáng, quạt CPU quay tối đa nhưng màn hình không tín hiệu, loa mainboard kêu 3 tiếng bíp ngắn liên tục.",
+      "symptoms": ["Không xuất hình ra màn hình (No Signal)", "Bàn phím không sáng đèn NumLock", "Còi loa bo mạch chủ phát 3 tiếng Beep ngắn"],
+      "category": "Hardware / RAM",
+      "xpReward": 40,
+      "diagnosticSteps": [
+        "Tra cứu mã Beep Code của bo mạch chủ (AMI BIOS: 3 bíp ngắn = lỗi đọc/ghi bộ nhớ RAM)",
+        "Ngắt nguồn điện hoàn toàn, xả tĩnh điện",
+        "Tháo thanh RAM, vệ sinh chân kim loại vàng bằng tẩy bút chì hoặc cồn Isopropyl 90 độ, cắm chặt lại vào khe A2/B2"
+      ],
+      "correctActionIndex": 0,
+      "options": [
+        "Tháo thanh RAM, vệ sinh sạch chân tiếp xúc bằng gôm tẩy/cồn chuyên dụng và cắm lại đúng khe ưu tiên",
+        "Thay card đồ họa rời mới ngay lập tức",
+        "Tháo pin CMOS ra ngâm nước muối để phục hồi điện áp",
+        "Cài lại hệ điều hành Windows qua cổng LAN PXE Boot"
+      ],
+      "explanation": "3 tiếng bíp ngắn (AMI BIOS) hoặc chuỗi bíp lặp lại báo hiệu lỗi bộ nhớ RAM (Memory parity error / Contact failure do ẩm mốc chân tiếp xúc). Vệ sinh chân RAM và kiểm tra khe cắm giải quyết 90% trường hợp."
+    },
+    {
+      "id": "ticket-04",
+      "subjectId": "sub-hw-os",
+      "title": "Báo lỗi 'The selected disk is of the GPT partition style' khi cài Win",
+      "severity": "High",
+      "userReport": "Chọn phân vùng cài Win thì nút Next bị mờ, thông báo: 'Windows cannot be installed to this disk. The selected disk is of the GPT partition style'. Máy khách có 2 ổ: C: cài Win và D: chứa 500GB đồ án tốt nghiệp.",
+      "symptoms": ["Không bấm được Next để cài đặt", "Khách hàng kiên quyết không được làm mất dữ liệu ổ D:", "Máy tính đang khởi động ở chế độ Legacy BIOS thay vì UEFI"],
+      "category": "Partition / UEFI-GPT",
+      "xpReward": 60,
+      "diagnosticSteps": [
+        "Xác định xung đột: Ổ cứng chuẩn GPT nhưng bộ cài USB đang boot ở chế độ Legacy BIOS (hoặc ngược lại)",
+        "Khởi động lại máy, bấm phím Boot Menu (F12/F11/Esc) và chọn dòng USB có tiền tố 'UEFI:'",
+        "TUYỆT ĐỐI KHÔNG gõ lệnh `diskpart -> clean` vì sẽ xóa sạch cả ổ D đồ án"
+      ],
+      "correctActionIndex": 2,
+      "options": [
+        "Chạy Command Prompt gõ `diskpart -> select disk 0 -> clean` để chuyển sang MBR",
+        "Format toàn bộ ổ cứng kể cả phân vùng D:",
+        "Khởi động lại máy, mở Boot Menu và chọn đúng dòng USB có chữ 'UEFI' để boot đồng bộ chuẩn GPT",
+        "Cài song song hệ điều hành Linux Ubuntu để tự sửa phân vùng"
+      ],
+      "explanation": "Windows yêu cầu: Boot chuẩn UEFI phải đi với ổ GPT, boot Legacy BIOS phải đi với ổ MBR. Nếu ổ GPT mà boot USB ở chế độ Legacy sẽ báo lỗi này. Chỉ cần khởi động lại và chọn boot USB ở chuẩn 'UEFI: [Tên USB]' là cài đặt êm đẹp mà không mất dữ liệu ổ D."
+    },
+    {
+      "id": "ticket-05",
+      "subjectId": "sub-hw-os",
+      "title": "Máy nhiễm mã độc Bootloop, cần cứu dữ liệu Desktop khẩn cấp",
+      "severity": "Critical",
+      "userReport": "Máy Giám đốc bị dính mã độc khởi động liên tục đến logo Windows là tắt. Trên màn hình Desktop và thư mục Documents có tài liệu dự án chưa kịp sao lưu.",
+      "symptoms": ["Windows không thể vào Safe Mode", "Khởi động lặp lại vô tận", "Cần dữ liệu gấp trong vòng 30 phút"],
+      "category": "WinPE / Data Rescue",
+      "xpReward": 55,
+      "diagnosticSteps": [
+        "Không được cài đè hay format phân vùng C trực tiếp",
+        "Boot vào môi trường cứu hộ WinPE (như Anhdv Boot / DLC Boot) từ USB",
+        "Mở File Explorer trong WinPE, truy cập đường dẫn `C:\\Users\\[Username]\\Desktop` và `Documents` để copy sang ổ cứng ngoài"
+      ],
+      "correctActionIndex": 1,
+      "options": [
+        "Dùng USB cài Windows bấm nút 'Install Now' và format ổ C ngay",
+        "Boot vào USB WinPE, mở File Explorer copy toàn bộ dữ liệu Desktop/Documents sang USB hoặc ổ D trước khi xử lý",
+        "Cắm ổ cứng sang máy tính khác đang hoạt động mà không bật phần mềm diệt virus",
+        "Gõ lệnh `format C: /q /x` từ cửa sổ phục hồi"
+      ],
+      "explanation": "Quy tắc vàng của kỹ thuật viên IT là 'Dữ liệu của khách hàng là ưu tiên số 1'. Phải dùng môi trường độc lập WinPE để mount ổ cứng và trích xuất dữ liệu quan trọng ra nơi an toàn trước khi tiến hành sửa chữa hay cài đặt lại."
+    },
+    {
+      "id": "ticket-06",
+      "subjectId": "sub-hw-os",
+      "title": "Máy bộ Dell cơ quan khóa mật khẩu BIOS, cấm cắm USB lạ",
+      "severity": "High",
+      "userReport": "Máy bộ Dell OptiPlex của cơ quan hành chính bị lỗi Windows, chính sách IT công ty khóa Password BIOS/Boot Menu và keo dán niêm phong cổng USB ngoài, nhưng cần cài lại Win gấp.",
+      "symptoms": ["Không thể bấm F2 hay F12 để chọn boot USB", "Windows cũ vẫn vào được màn hình Recovery WinRE", "Ổ cứng còn 40GB trống"],
+      "category": "Disk Management / BCD Injection",
+      "xpReward": 70,
+      "diagnosticSteps": [
+        "Sử dụng kỹ thuật giải nén bộ cài ISO vào phân vùng ổ D:",
+        "Hoặc chia một phân vùng 5-10GB trên ổ cứng, nạp bộ cứu hộ WinPE và add vào menu BCD của Windows Boot Manager",
+        "Khởi động lại chọn trực tiếp Menu WinPE trên ổ cứng mà không cần cắm USB hay truy cập BIOS"
+      ],
+      "correctActionIndex": 0,
+      "options": [
+        "Chia phân vùng 5-10GB trên ổ cứng, nạp WinPE/ISO và thêm vào menu boot BCD qua EasyBCD/Bootice để boot trực tiếp từ ổ cứng",
+        "Dùng kìm bẻ khóa thùng máy để tháo pin CMOS",
+        "Đập bỏ ổ cứng thay máy mới",
+        "Cắm điện 380V vào cổng mạng để ép BIOS reset"
+      ],
+      "explanation": "Khi bị khóa BIOS và cấm boot USB, giải pháp đỉnh cao của Kỹ thuật viên là 'Menu Boot WinPE tại chỗ'. Ta phân vùng 5-10GB ngay trên ổ cứng, nạp file WIM hoặc bộ cài và dùng bcdedit / EasyBCD ghi một entry vào Windows Boot Manager. Khi bật máy, menu lựa chọn sẽ hiện ra mà không cần can thiệp phím BIOS."
+    }
+  ],
+  "stage2_code_bugs": [
+    {
+      "id": "bug-01",
+      "subjectId": "sub-code-bugs",
+      "title": "Bẫy gán biến trong điều kiện kiểm tra quyền Admin",
+      "language": "c",
+      "category": "Cú pháp & Logic toán tử",
+      "difficulty": "Dễ",
+      "xpReward": 40,
+      "code": "#include <stdio.h>\n#include <stdbool.h>\n\nint main() {\n    bool isAdmin = false;\n    int userRole = 0; // 0: Guest, 1: Moderator, 2: Admin\n\n    // Kiểm tra quyền hạn truy cập hệ thống K21\n    if (isAdmin = true) {\n        printf(\"ACCESS GRANTED: Chao mung Admin he thong K21!\\n\");\n    } else {\n        printf(\"ACCESS DENIED: Ban khong co quyen truy cap!\\n\");\n    }\n    return 0;\n}",
+      "bugLineNumber": 9,
+      "hint1": "Quan sát kỹ toán tử trong câu lệnh điều kiện `if` tại dòng 9.",
+      "hint2": "Trong ngôn ngữ C và JavaScript, toán tử `=` là phép GÁN giá trị, còn toán tử `==` mới là phép SO SÁNH bằng.",
+      "hint3": "Sửa `if (isAdmin = true)` thành `if (isAdmin == true)` hoặc viết chuẩn Clean Code: `if (isAdmin)`.",
+      "expectedFixedSnippet": "isAdmin == true",
+      "explanation": "Lỗi cực kỳ phổ biến của sinh viên K21! Biểu thức `isAdmin = true` thực hiện phép gán giá trị `true` vào biến `isAdmin`, sau đó trả về giá trị `true`, khiến khối `if` luôn luôn chạy ngay cả khi ban đầu user là Guest."
+    },
+    {
+      "id": "bug-02",
+      "subjectId": "sub-code-bugs",
+      "title": "Vòng lặp vô tận đóng băng CPU máy chủ K21",
+      "language": "c",
+      "category": "Vòng lặp & Biến đếm",
+      "difficulty": "Dễ",
+      "xpReward": 40,
+      "code": "#include <stdio.h>\n\nint main() {\n    int count = 1;\n    int totalStudents = 5;\n\n    printf(\"Danh sach sinh vien K21 diem danh:\\n\");\n    while (count <= totalStudents) {\n        printf(\"Sinh vien thu %d da co mat.\\n\", count);\n        // Quen cap nhat buoc nhay tai day\n    }\n    printf(\"Hoan tat diem danh!\\n\");\n    return 0;\n}",
+      "bugLineNumber": 10,
+      "hint1": "Vòng lặp `while` cần một điều kiện dừng. Biến `count` thay đổi như thế nào sau mỗi lần lặp?",
+      "hint2": "Biến `count` luôn có giá trị là 1, nên điều kiện `count <= totalStudents` mãi mãi đúng, gây ra vòng lặp vô tận (Infinite Loop).",
+      "hint3": "Thêm lệnh tăng biến đếm `count++;` hoặc `count = count + 1;` vào bên trong thân vòng lặp `while`.",
+      "expectedFixedSnippet": "count++",
+      "explanation": "Khi viết vòng lặp `while`, nếu quên cập nhật biến đếm hoặc điều kiện thoát, chương trình sẽ treo vĩnh viễn, tiêu thụ 100% tài nguyên CPU."
+    },
+    {
+      "id": "bug-03",
+      "subjectId": "sub-code-bugs",
+      "title": "Tràn mảng Off-By-One gây hỏng vùng nhớ Stack",
+      "language": "c",
+      "category": "Mảng & Vùng nhớ",
+      "difficulty": "Trung bình",
+      "xpReward": 50,
+      "code": "#include <stdio.h>\n\nint main() {\n    // Mang diem thi 5 mon cua sinh vien K21\n    int scores[5] = {85, 90, 78, 92, 88};\n    int sum = 0;\n\n    // Duyet qua tat ca phan tu de tinh tong\n    for (int i = 0; i <= 5; i++) {\n        sum += scores[i];\n    }\n\n    printf(\"Tong diem: %d\\n\", sum);\n    return 0;\n}",
+      "bugLineNumber": 9,
+      "hint1": "Mảng có 5 phần tử thì chỉ số (index) hợp lệ chạy từ bao nhiêu đến bao nhiêu?",
+      "hint2": "Trong C/C++, mảng có kích thước N thì index chạy từ 0 đến N-1. Ở đây N=5 nên index chỉ từ 0 đến 4. Tại `i = 5`, chương trình truy xuất ngoài vùng nhớ mảng (Buffer Overflow).",
+      "hint3": "Đổi điều kiện dừng của vòng lặp từ `i <= 5` thành `i < 5`.",
+      "expectedFixedSnippet": "i < 5",
+      "explanation": "Lỗi 'Off-by-one error' (lệch 1 đơn vị). `scores[5]` truy cập vào ô nhớ nằm ngoài phạm vi mảng, đọc giá trị rác hoặc làm crash chương trình (Segmentation Fault)."
+    },
+    {
+      "id": "bug-04",
+      "subjectId": "sub-code-bugs",
+      "title": "Phép chia số nguyên làm mất phần thập phân (Integer Truncation)",
+      "language": "c",
+      "category": "Kiểu dữ liệu & Ép kiểu",
+      "difficulty": "Trung bình",
+      "xpReward": 50,
+      "code": "#include <stdio.h>\n\nint main() {\n    int tongDiem = 17;\n    int soMon = 2;\n    \n    // Tinh diem trung binh (ky vong: 8.5)\n    float diemTB = tongDiem / soMon;\n\n    printf(\"Diem trung binh mon: %.2f\\n\", diemTB); // Ket qua in ra: 8.00!\n    return 0;\n}",
+      "bugLineNumber": 8,
+      "hint1": "Biểu thức `tongDiem / soMon` đang thực hiện phép chia giữa hai biến có kiểu dữ liệu gì?",
+      "hint2": "Trong C, phép chia `int / int` sẽ luôn cho kết quả là `int` (bị chặt cụt phần thập phân), sau đó mới gán vào biến `float`.",
+      "hint3": "Cần ép kiểu ít nhất 1 toán hạng sang `float`, ví dụ: `(float)tongDiem / soMon` hoặc `(float)tongDiem / (float)soMon`.",
+      "expectedFixedSnippet": "(float)tongDiem / soMon",
+      "explanation": "Trong C, `17 / 2 = 8` (chứ không phải 8.5) vì cả 2 toán hạng đều là số nguyên. Sau đó số 8 được ép ngầm định thành `8.00`. Để giữ phần thập phân, cần ép kiểu rõ ràng: `(float)tongDiem / soMon`."
+    },
+    {
+      "id": "bug-05",
+      "subjectId": "sub-code-bugs",
+      "title": "Quên trích xuất thuộc tính .value khi lấy dữ liệu DOM Input",
+      "language": "javascript",
+      "category": "JavaScript & DOM Manipulation",
+      "difficulty": "Dễ",
+      "xpReward": 45,
+      "code": "// Kiem tra sinh vien K21 co du tuoi tham gia cuoc thi\nfunction checkEligibility() {\n    const ageInput = document.getElementById(\"student-age\");\n    \n    // Kiem tra do tuoi tren 18\n    if (ageInput >= 18) {\n        console.log(\"Du dieu kien tham gia Arena!\");\n        return true;\n    } else {\n        console.log(\"Chua du tuoi quy dinh!\");\n        return false;\n    }\n}",
+      "bugLineNumber": 6,
+      "hint1": "Hàm `document.getElementById` trả về đối tượng HTML Element chứ không phải giá trị người dùng nhập vào.",
+      "hint2": "Để lấy chuỗi giá trị từ thẻ `<input>`, ta cần truy xuất thuộc tính `.value` của phần tử đó.",
+      "hint3": "Sửa `ageInput >= 18` thành `Number(ageInput.value) >= 18` hoặc `parseInt(ageInput.value) >= 18`.",
+      "expectedFixedSnippet": "ageInput.value >= 18",
+      "explanation": "`ageInput` là một đối tượng `HTMLInputElement`. Khi so sánh đối tượng với số nguyên `18`, JavaScript sẽ ép kiểu thành `[object HTMLInputElement] >= 18`, kết quả luôn là `false`."
+    },
+    {
+      "id": "bug-06",
+      "subjectId": "sub-code-bugs",
+      "title": "Sai thứ tự ưu tiên giữa toán tử AND (&&) và OR (||)",
+      "language": "javascript",
+      "category": "Logic Boolean & Toán tử",
+      "difficulty": "Khó",
+      "xpReward": 60,
+      "code": "// He thong xet mien giam hoc phi K21\n// Yeu cau: La Sinh vien K21 VA (co hoc bong HOAC thuoc ho ngheo)\nfunction checkScholarship(isK21, hasMerit, isPoorHousehold) {\n    // Bug logic: && co do uu tien cao hon ||\n    if (isK21 && hasMerit || isPoorHousehold) {\n        return \"Duoc mien giam 100% hoc phi\";\n    }\n    return \"Khong thuoc dien mien giam\";\n}\n\n// Test case: Nguoi ngoai truong khong phai K21 (isK21 = false) nhung ho ngheo\nconsole.log(checkScholarship(false, false, true)); \n// Ket qua in ra mien giam la sai vi yeu cau tien quyet phai la K21!",
+      "bugLineNumber": 5,
+      "hint1": "Toán tử logic nào có độ ưu tiên cao hơn: `&&` hay `||`?",
+      "hint2": "Trong JavaScript, `&&` có độ ưu tiên cao hơn `||`. Biểu thức `A && B || C` được tính là `(A && B) || C`. Do đó chỉ cần `C = true` là điều kiện tổng đúng ngay cả khi `A = false`.",
+      "hint3": "Dùng cặp dấu ngoặc đơn `()` để gom nhóm điều kiện: `isK21 && (hasMerit || isPoorHousehold)`.",
+      "expectedFixedSnippet": "isK21 && (hasMerit || isPoorHousehold)",
+      "explanation": "Quy tắc ưu tiên toán tử: `&&` tương đương phép nhân logic, `||` tương đương phép cộng logic. Luôn dùng dấu ngoặc đơn `()` để thể hiện rõ ràng chủ ý của lập trình viên và tránh bẫy logic chết người."
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "fc-01",
+      "subjectId": "sub-hw-os",
+      "front": "UEFI và GPT khác gì so với Legacy BIOS và MBR?",
+      "back": "GPT hỗ trợ ổ cứng > 2TB (lên tới hàng ZB) và tạo được tới 128 phân vùng chính, đi kèm chuẩn boot UEFI tốc độ nhanh và bảo mật Secure Boot. Legacy BIOS + MBR chỉ hỗ trợ tối đa 2TB và tối đa 4 phân vùng Primary.",
+      "category": "Kiến trúc máy tính"
+    },
+    {
+      "id": "fc-02",
+      "subjectId": "sub-hw-os",
+      "front": "Tại sao CPU Intel Gen 11-14 cần driver Intel VMD/IRST khi cài Win?",
+      "back": "Intel VMD (Volume Management Device) quản lý trực tiếp các làn PCIe NVMe để tối ưu tốc độ và RAID. Bản cài Windows nguyên gốc chưa tích hợp driver `iaStorVD.sys`, nếu không Load Driver thì bộ cài sẽ không thể nhìn thấy ổ SSD.",
+      "category": "Lưu trữ NVMe"
+    },
+    {
+      "id": "fc-03",
+      "subjectId": "sub-code-bugs",
+      "front": "Sự khác biệt giữa `==` và `===` trong JavaScript là gì?",
+      "back": "`==` là so sánh lỏng lẻo (loose equality) - tự động ép kiểu dữ liệu trước khi so sánh (ví dụ `'5' == 5` là `true`). `===` là so sánh nghiêm ngặt (strict equality) - kiểm tra cả giá trị VÀ kiểu dữ liệu (ví dụ `'5' === 5` là `false`).",
+      "category": "Lập trình Web"
+    },
+    {
+      "id": "fc-04",
+      "subjectId": "sub-code-bugs",
+      "front": "Segmentation Fault trong ngôn ngữ C xảy ra khi nào?",
+      "back": "Xảy ra khi chương trình cố gắng truy cập vào vùng nhớ mà nó không có quyền (dereference con trỏ NULL, truy cập mảng vượt quá kích thước, ghi đè vùng nhớ chỉ đọc hoặc tràn ngăn xếp stack).",
+      "category": "Hệ thống C/C++"
+    },
+    {
+      "id": "fc-05",
+      "subjectId": "sub-net-deploy",
+      "front": "Chuẩn bấm cáp mạng T568B theo thứ tự màu dây là gì?",
+      "back": "1. Trắng Cam - 2. Cam - 3. Trắng Xanh Lá - 4. Xanh Dương - 5. Trắng Xanh Dương - 6. Xanh Lá - 7. Trắng Nâu - 8. Nâu.",
+      "category": "Mạng máy tính"
+    },
+    {
+      "id": "fc-06",
+      "subjectId": "sub-sql-db",
+      "front": "Khác biệt giữa `WHERE` và `HAVING` trong câu lệnh SQL?",
+      "back": "`WHERE` lọc dữ liệu của từng dòng TRƯỚC KHI gom nhóm (không dùng được với hàm tổng hợp như SUM, COUNT, AVG). `HAVING` lọc kết quả SAU KHI đã gom nhóm bằng mệnh đề `GROUP BY`.",
+      "category": "Cơ sở dữ liệu"
+    }
+  ],
+  "error_notebook": [
+    {
+      "id": "err-01",
+      "userId": "sv-k21-001",
+      "subjectId": "sub-hw-os",
+      "itemId": "ticket-02",
+      "itemTitle": "Laptop Intel Gen 12/13/14 không nhận ổ cứng NVMe khi cài Win",
+      "mistakeMade": "Chọn xóa phân vùng sạch bằng Diskpart Clean thay vì Load driver Intel RST",
+      "coreLesson": "Cần nhận diện CPU Intel Gen 11-14 sử dụng Intel VMD. Giải nén driver IRST vào USB và chọn 'Load Driver', không format bừa bãi.",
+      "timestamp": "2026-10-20T19:30:00Z"
+    },
+    {
+      "id": "err-02",
+      "userId": "sv-k21-001",
+      "subjectId": "sub-code-bugs",
+      "itemId": "bug-06",
+      "itemTitle": "Sai thứ tự ưu tiên giữa toán tử AND (&&) và OR (||)",
+      "mistakeMade": "Không dùng dấu ngoặc đơn () để nhóm điều kiện",
+      "coreLesson": "Toán tử && ưu tiên cao hơn ||. Luôn dùng () để kiểm soát thứ tự logic.",
+      "timestamp": "2026-10-20T19:45:00Z"
+    }
+  ],
+  "system_logs": [
+    {"timestamp": "2026-10-20T20:00:00Z", "method": "GET", "endpoint": "/subjects", "status": 200, "source": "System Bootstrap"},
+    {"timestamp": "2026-10-20T20:00:02Z", "method": "GET", "endpoint": "/users/sv-k21-001", "status": 200, "source": "Auth Init"},
+    {"timestamp": "2026-10-20T20:05:12Z", "method": "GET", "endpoint": "/stage1_it_tickets?subjectId=sub-hw-os", "status": 200, "source": "Arena Stage 1"}
+  ]
+}
+

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT Rookie Arena AI – Đào tạo & Săn Bug K21 (V2.0)</title>
+  <meta name="description" content="Nền tảng Web Game đào tạo CNTT thực chiến K21: IT Helpdesk, 4 cách cài Win, Đấu trường Săn Bug Code và AI Mentor 3 cấp độ.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="theme-cyber-dark">
+
+  <div class="app-shell" id="appShell">
+
+    <!-- OVERLAY FOR MOBILE SIDEBAR -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- SIDEBAR DỌC CHUẨN SAAS / EDTECH (ANTI-BLOAT ARCHITECTURE) -->
+    <aside class="sidebar" id="sidebar">
+      
+      <!-- BRANDING HEADER -->
+      <div class="sidebar-brand">
+        <div class="brand-logo-glow">
+          <span class="brand-icon">⚡</span>
+        </div>
+        <div class="brand-meta">
+          <div class="brand-title-wrap">
+            <h1 class="brand-title">IT ARENA</h1>
+            <span class="badge-version">V2.0 AI</span>
+          </div>
+          <p class="brand-sub">Đào tạo & Săn Bug K21</p>
+        </div>
+      </div>
+
+      <!-- QUICK ROLE SWITCHER (FOR FAST EVALUATION BY JUDGES & TEACHERS) -->
+      <div class="role-switcher-box">
+        <label for="roleSelector" class="role-switcher-label">
+          <span class="role-indicator-icon">🎭</span>
+          <span>Chế độ Nhập vai:</span>
+        </label>
+        <div class="role-select-wrapper">
+          <select id="roleSelector" class="role-selector-input">
+            <option value="student">👨‍💻 Sinh viên (K21 Học tập)</option>
+            <option value="teacher">👨‍🏫 Giảng viên (Teacher Studio)</option>
+            <option value="admin">⚡ Admin (Quản trị Hệ thống)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- VERTICAL NAVIGATION MENU GROUPED BY WORKSPACE -->
+      <nav class="nav-menu" id="navMenu">
+
+        <!-- STUDENT WORKSPACE NAV -->
+        <div class="nav-group" id="navGroupStudent" data-role="student">
+          <div class="nav-group-title">PHÂN HỆ SINH VIÊN K21</div>
+          
+          <button class="nav-item active" data-view="student-dashboard">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Dashboard Cá nhân</span>
+          </button>
+
+          <button class="nav-item" data-view="student-stage1">
+            <span class="nav-icon">🛠️</span>
+            <span class="nav-label">Ải 1: Helpdesk & Cài Win</span>
+            <span class="nav-badge count-badge" id="badgeTicketsCount">6</span>
+          </button>
+
+          <button class="nav-item" data-view="student-stage2">
+            <span class="nav-icon">🐛</span>
+            <span class="nav-label">Ải 2: Săn Bug & Flashcard</span>
+            <span class="nav-badge count-badge" id="badgeBugsCount">6</span>
+          </button>
+
+          <button class="nav-item" data-view="student-notebook">
+            <span class="nav-icon">📓</span>
+            <span class="nav-label">Sổ tay Lỗi sai Cá nhân</span>
+            <span class="nav-badge pulse-badge" id="badgeNotebookCount">0</span>
+          </button>
+
+          <button class="nav-item" data-view="student-leaderboard">
+            <span class="nav-icon">🏆</span>
+            <span class="nav-label">Bảng Vàng K21</span>
+          </button>
+        </div>
+
+        <!-- TEACHER WORKSPACE NAV -->
+        <div class="nav-group" id="navGroupTeacher" data-role="teacher">
+          <div class="nav-group-title">PHÂN HỆ GIẢNG VIÊN</div>
+
+          <button class="nav-item" data-view="teacher-dashboard">
+            <span class="nav-icon">📈</span>
+            <span class="nav-label">Studio Thống kê Lớp</span>
+          </button>
+
+          <button class="nav-item" data-view="teacher-crud">
+            <span class="nav-icon">📚</span>
+            <span class="nav-label">Ngân hàng Đề & Ca trực</span>
+            <span class="nav-badge">CRUD</span>
+          </button>
+        </div>
+
+        <!-- ADMIN WORKSPACE NAV -->
+        <div class="nav-group" id="navGroupAdmin" data-role="admin">
+          <div class="nav-group-title">QUẢN TRỊ VIÊN HỆ THỐNG</div>
+
+          <button class="nav-item" data-view="admin-subjects">
+            <span class="nav-icon">🌐</span>
+            <span class="nav-label">Quản lý Môn học</span>
+          </button>
+
+          <button class="nav-item" data-view="admin-users">
+            <span class="nav-icon">👥</span>
+            <span class="nav-label">Quản lý Người dùng</span>
+          </button>
+
+          <button class="nav-item" data-view="admin-server">
+            <span class="nav-icon">🖥️</span>
+            <span class="nav-label">Server Ảo & REST API</span>
+          </button>
+        </div>
+
+      </nav>
+
+      <!-- SIDEBAR FOOTER: VIRTUAL SERVER CONNECTION STATUS CARD -->
+      <div class="sidebar-footer">
+        <div class="server-status-card" id="serverStatusCard">
+          <div class="status-top">
+            <div class="status-indicator">
+              <span class="status-dot" id="serverDot"></span>
+              <span class="status-title" id="serverStatusText">Đang kết nối...</span>
+            </div>
+            <span class="status-badge" id="serverBadge">ONLINE</span>
+          </div>
+          <div class="status-details">
+            <span class="status-url" id="serverEndpoint">http://localhost:3000</span>
+            <span class="status-latency" id="serverLatency">-- ms</span>
+          </div>
+          <div class="status-actions">
+            <button class="btn-text-status" id="btnTestServer">Kiểm tra kết nối</button>
+            <button class="btn-text-status" id="btnOpenServerModal">Cấu hình API</button>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN WORKSPACE -->
+    <main class="main-workspace">
+
+      <!-- TOPBAR CỐ ĐỊNH THANH MỎNG -->
+      <header class="topbar">
+        
+        <div class="topbar-left">
+          <!-- Mobile Menu Hamburger -->
+          <button class="btn-icon mobile-menu-toggle" id="mobileMenuBtn" aria-label="Mở Menu">
+            <span>☰</span>
+          </button>
+
+          <!-- MULTI-SUBJECT SELECTOR (CHỨNG MINH KHẢ NĂNG MỞ RỘNG ĐA LĨNH VỰC) -->
+          <div class="subject-selector-box">
+            <label for="topbarSubjectSelect" class="subject-select-label">
+              <span class="subject-icon-tag" id="currentSubjectIcon">💻</span>
+              <span class="subject-label-text">Môn học:</span>
+            </label>
+            <select id="topbarSubjectSelect" class="topbar-subject-select">
+              <!-- Dynamically populated from VirtualServerAPI / subjects -->
+            </select>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Quick Filter/Search Box -->
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="topbarSearch" class="search-input" placeholder="Tìm kiếm nhanh sự cố, bug, thẻ flashcard...">
+            <button class="btn-search-clear" id="btnSearchClear" style="display:none;">✕</button>
+          </div>
+
+          <!-- Sound Effects Toggle -->
+          <button class="btn-icon btn-sound-toggle" id="btnSoundToggle" title="Bật/Tắt âm thanh hiệu ứng" aria-label="Bật/Tắt âm thanh">
+            <span id="soundIcon">🔊</span>
+          </button>
+
+          <!-- USER PROFILE CARD / WIDGET -->
+          <div class="user-profile-widget" id="userProfileWidget">
+            <div class="user-avatar-badge" id="userAvatar">👨‍💻</div>
+            <div class="user-meta-summary">
+              <div class="user-name-line">
+                <span class="user-name" id="userName">Nguyễn Hoàng Nam</span>
+                <span class="user-role-pill" id="userRolePill">Sinh viên</span>
+              </div>
+              <div class="user-sub-line">
+                <span class="user-mssv" id="userMssv">21DTH01245</span>
+                <span class="user-dot-sep">•</span>
+                <span class="user-class" id="userClass">K21-CNTT02</span>
+              </div>
+            </div>
+
+            <!-- GAMIFICATION CHIPS -->
+            <div class="user-stats-chips">
+              <div class="stat-chip xp-chip" title="Tổng điểm kinh nghiệm XP">
+                <span class="chip-icon">⚡</span>
+                <span class="chip-val" id="userXp">340</span>
+                <span class="chip-unit">XP</span>
+              </div>
+              <div class="stat-chip streak-chip" title="Chuỗi ngày luyện tập liên tục">
+                <span class="chip-icon">🔥</span>
+                <span class="chip-val" id="userStreak">5</span>
+              </div>
+            </div>
+
+            <!-- Profile Edit Action -->
+            <button class="btn-icon-tiny" id="btnEditProfile" title="Chỉnh sửa thông tin cá nhân">
+              ✏️
+            </button>
+          </div>
+
+        </div>
+
+      </header>
+
+      <!-- DYNAMIC CONTENT VIEW CONTAINER -->
+      <section class="workspace-content" id="workspaceContent">
+        <!-- Rendered dynamically by app.js based on role and active route -->
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- MODAL DIALOG CONTAINER -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal-card" id="modalCard">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle">Tiêu đề Modal</h3>
+        <button class="modal-close-btn" id="modalCloseBtn">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Injected via app.js -->
+      </div>
+      <div class="modal-footer" id="modalFooter">
+        <!-- Buttons injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION STACK -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- PURE JAVASCRIPT APPLICATION -->
+  <script src="app.js"></script>
+</body>
+</html>
+
